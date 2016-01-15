@@ -1,0 +1,34 @@
+{
+  "name": "jekyll-audit",
+  "version": "1.0.0",
+  "description": "Audit Jekyll sites for sanity",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ktbartholomew/jekyll-audit.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ktbartholomew/jekyll-audit/issues"
+  },
+  "homepage": "https://github.com/ktbartholomew/jekyll-audit#readme",
+  "dependencies": {
+    "chalk": "^1.1.1",
+    "commander": "^2.9.0",
+    "front-matter": "^2.0.5",
+    "glob": "^6.0.4",
+    "js-yaml": "^3.5.2",
+    "lodash": "^3.10.1",
+    "natural": "^0.2.1",
+    "simple-statistics": "^1.0.1",
+    "slug": "^0.9.1"
+  },
+  "preferGlobal": true,
+  "bin": {
+    "jeyll-audit": "bin/jekyll-audit"
+  }
+}

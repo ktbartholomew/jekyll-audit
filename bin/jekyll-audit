@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+
+/**
+ * A script to be invoked from the shell that does various auditing activities
+ *
+ * @requires commander
+ */
+
+var program = require('commander');
+
+// program.on('--help', function () {
+//   console.log('  Commands:');
+//   console.log('     categories list-underused    Show categories for which the number of posts is <= ' + UNDERUSED_THRESHOLD + '% of all posts');
+//   console.log('     categories delete-underused  Remove underused categories from applicable posts');
+//   console.log('     categories list-similar      Show categories that have similar names and could be normalized/merged');
+// });
+
+program.command('categories <command>', 'Audit a blog\'s categories');
+
+
+program.parse(process.argv);

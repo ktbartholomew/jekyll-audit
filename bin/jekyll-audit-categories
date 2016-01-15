@@ -1,0 +1,62 @@
+#!/usr/bin/env node
+
+var program = require('commander');
+var handlers = require('../lib/cli/categories');
+var config = require('../lib/config');
+var getCommandNames = require('../lib/util/get-command-names');
+
+/**
+ * @name List underused categories
+ * @example jekyll-audit categories list-underused --threshold 5
+ * @argument -p, --posts-dir <dir> Path to a directory of blog posts
+ * @argument --threshold <num>
+ * @description Evaluates all categories and tallies the number of posts
+ * assigned to each. By default, categories that account for 2% or less of all
+ * posts will be considered "underused". This threshold is configurable by
+ * providing a float between 0 and 1 using the flag `--threshold <num>`.
+ *
+ */
+program.command('list-underused')
+.option('-p, --posts-dir <dir>', 'Path to a directory of blog posts')
+.option('--threshold <num>', 'Integer between 0 and 100, indicating a percentage of total posts.', parseFloat, 0.02)
+.description('Show categories that only account for a small amount of total posts')
+.action(function (env) {
+  config.apply({
+    postsDir: program.args[0].postsDir,
+    threshold: program.args[0].threshold
+  });
+
+  handlers.listUnderused();
+});
+
+/**
+ * @name List similar categories
+ * @example jekyll-audit categories list-similar --threshold 0.9
+ * @argument -p, --posts-dir <dir> Path to a directory of blog posts
+ * @argument --threshold <num> Jaro-Winkler distance above which categories will
+ * be considered "similar". Should be a Float between 0 and 1.
+ * @description Evaluates all categories and measures the Jaro-Winkler string
+ * distance between the names of each. Will suggest that categories with very
+ * similar names (e.g: "API" and "APIs") be merged into the category with more
+ * posts.
+ *
+ */
+program.command('list-similar')
+.option('-p, --posts-dir <dir>', 'Path to a directory of blog posts')
+.option('--threshold <num>', 'Float between 0 and 1, indicating level of similarity.', parseFloat, 0.9)
+.description('Show categories that have similar names and could be normalized/merged')
+.action(function (env) {
+  config.apply({
+    postsDir: program.args[0].postsDir,
+    threshold: program.args[0].threshold
+  });
+
+  handlers.listSimilar();
+});
+
+program.parse(process.argv);
+
+// Commander doesn't require subcommands but we do
+if(program.args.length === 0 || getCommandNames(program).indexOf(program.args[0]._name) === -1) {
+  program.help();
+}
