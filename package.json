@@ -2,7 +2,7 @@
   "name": "jekyll-audit",
   "version": "1.0.0",
   "description": "Audit Jekyll sites for sanity",
-  "main": "index.js",
+  "main": "bin/jekyll-audit",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 var program = require('commander');
-var handlers = require('../lib/cli/categories');
+// var handlers = require('../lib/cli/categories');
+var cli = require('../lib/cli');
 var config = require('../lib/config');
 var getCommandNames = require('../lib/util/get-command-names');
 
@@ -21,12 +22,17 @@ program.command('list-underused')
 .option('--threshold <num>', 'Integer between 0 and 100, indicating a percentage of total posts.', parseFloat, 0.02)
 .description('Show categories that only account for a small amount of total posts')
 .action(function (env) {
-  config.apply({
+  // config.apply();
+  //
+  // handlers.listUnderused();
+
+
+  cli.init({
     postsDir: program.args[0].postsDir,
     threshold: program.args[0].threshold
   });
 
-  handlers.listUnderused();
+  cli.run('list-underused');
 });
 
 /**
@@ -46,12 +52,12 @@ program.command('list-similar')
 .option('--threshold <num>', 'Float between 0 and 1, indicating level of similarity.', parseFloat, 0.9)
 .description('Show categories that have similar names and could be normalized/merged')
 .action(function (env) {
-  config.apply({
+  cli.init({
     postsDir: program.args[0].postsDir,
     threshold: program.args[0].threshold
   });
 
-  handlers.listSimilar();
+  cli.run('list-similar');
 });
 
 program.parse(process.argv);
