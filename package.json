@@ -1,6 +1,6 @@
 {
   "name": "jekyll-audit",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Audit Jekyll sites for sanity",
   "main": "bin/jekyll-audit",
   "scripts": {
@@ -29,6 +29,6 @@
   },
   "preferGlobal": true,
   "bin": {
-    "jeyll-audit": "bin/jekyll-audit"
+    "jekyll-audit": "bin/jekyll-audit"
   }
 }
