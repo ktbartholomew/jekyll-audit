@@ -74,6 +74,29 @@ program.command('list-similar')
   cli.run('list-similar');
 });
 
+/**
+ * @name Delete underused categories
+ * @example jekyll-audit categories delete-underused
+ * @argument -p, --posts-dir <dir> Path to a directory of blog posts
+ * @argument --threshold <num>
+ * @description Deletes underused categories by removing each category's name
+ * from the frontmatter of any post that uses the category. If run with the same
+ * arugments as `list-undersed`, will remove all the categories output by that
+ * command.
+ */
+ program.command('delete-underused')
+ .option('-p, --posts-dir <dir>', 'Path to a directory of blog posts')
+ .option('--threshold <num>', 'Integer between 0 and 100, indicating a percentage of total posts.', parseFloat, 0.02)
+ .description('Show categories that only account for a small amount of total posts')
+ .action(function (env) {
+   cli.init({
+     postsDir: program.args[0].postsDir,
+     threshold: program.args[0].threshold
+   });
+
+   cli.run('delete-underused');
+ });
+
 program.parse(process.argv);
 
 // Commander doesn't require subcommands but we do
